@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="parents">
+    <hello></hello>
+    <hr>
+
+</div>
+<template id="per">
+    <div>
+        <h1>{{msg}}:{{email}} ,,{{account}}</h1>
+        <br>
+
+        <childss :message="msg" :acc="account" :oopj="objk" :ess="email"> </childss>
+
+        <h2  @sendData="getData">父组件访问子组件数据 {{name}}</h2>
+    </div>
+</template>
+
+<template id="child">
+    <div>
+        <h2>{{name}} ,{{message}} ,{{acc}},这是一个对象：{{oopj.test}}</h2>
+        <h3>{{ess}}</h3>
+        <hr>
+        <button v-on:click="send">子组件向父组件发送数据</button>
+    </div>
+</template>
+<script>
+    var vm =new Vue({
+        el:"#parents",
+        components:{
+            'hello':{
+                template:"#per",
+                methods:{
+                    getData(name){
+                        console.log("从父组件里打印出来的log"+name)
+                    }
+                },
+                data(){
+                    return {
+                        msg:"这是一个父组件的数据",
+                        email:"675372024@qq.com",
+                        account:"lixiang",
+                        objk:{test:'ggg',yyy:161219},
+                        name:""
+                    }
+                },
+                'components': {
+                    'childss':{
+                        data(){
+                            return {
+                                name:'这是一个子组件'
+                            }
+                        },
+                        template:"#child",
+                        // props:['message','acc','oopj','ess']
+                        props:{
+                            message:String,
+                            acc:String,
+                            oopj:Object,
+                            ess:String
+                        },
+                        methods:{
+                            send() {
+                               this.$emit('sendData',this.name)
+                                console.log(this.name+"获取到的姓名")
+                            }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

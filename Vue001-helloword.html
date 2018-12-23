@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{msg}}</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+        window.onload=function () {
+            Vue.config.devtools=true //配置是否允许vue-devtool 检查代码
+            Vue.config.productionTip=false //阻止vue启动时
+            var vue = new Vue({
+                el:'#app',
+                data:{
+                    msg:'美滋滋',
+                    message:'hello word'
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<div id="app">
+    {{ message }}
+</div>
+
+</body>
+</html>

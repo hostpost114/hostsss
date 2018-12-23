@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+<hello></hello>
+</div>
+
+<template id="parent">
+    <div>
+        <br>
+        <h1>这是从子组件接收过来的数据{{sex}},{{age}}</h1>
+        <word v-on:send-data="getData"></word>
+    </div>
+
+
+</template>
+
+<template id="child">
+    <div>
+        <button v-on:click="send">组件数据通信</button>
+    </div>
+
+</template>
+
+<script>
+    var vue=new Vue({
+        el:"#app",
+        components:{
+            'hello':{
+                methods:{
+                    getData(sex,age){
+                        this.sex=sex;
+                        this.age=age
+                        console.log("get shuju")
+                    }
+                },
+                template:"#parent",
+                data(){
+                    return {
+                        msg:"这是一个父组件消息",
+                        sex:"",
+                        age:""
+                    }
+                },
+                components: {
+                    word:{
+                        template: "#child",
+                        data(){
+                            return {
+                                sex:"girl",
+                                age:25
+                            }
+                        },
+                        methods:{
+                            send(){
+                                this.$emit("send-data",this.sex,this.age)
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

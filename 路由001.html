@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <router-link to="/home">主页</router-link>
+        <router-link to="/login">登陆界面</router-link>
+    </div>
+    <router-view></router-view>
+</div>
+<template id="Homes">
+    <div>
+        这是一个主页的模板界面
+    </div>
+</template>
+<template id="Logins">
+    <div>
+        <h2>这是一个登陆的界面</h2>
+        <ul>
+            <li><router-link to="/login/register?username='zhongting'">注册</router-link></li>
+            <li><router-link to="/login/logname/lixiangtester">准备登陆</router-link></li>
+        </ul>
+        <router-view></router-view>
+    </div>
+</template>
+<template id="Register">
+    <div>
+        用户名：<input type="text" v-model="name">
+        密码 :<input type="text">
+        <button type="submit">提交：</button>
+        {{name}}
+        <br>
+        {{$route.query}}
+        <hr>
+        <p>这个是获取到的query数据：{{name}}</p>
+    </div>
+
+</template>
+
+<template id="Logger">
+<p>
+    欢迎来到英雄联盟
+    {{$route.params.username}}
+</p>
+</template>
+<script>
+    var Home={template:"#Homes"}
+    var Login={
+        template: '#Logins',
+        // data(){
+        //     return {
+        //         username:"lixiang",
+        //         password:""
+        //     }
+        // },
+        // methods:{
+        //     getdata(){
+        //         if (this.username== route.query){
+        //
+        //         }
+        //         console.log(route.query)
+        //     }
+        // }
+    }
+    var Registers={
+        template:"#Register",
+        data(){
+            return {
+                name:this.$route.params.username
+            }
+        },
+        method:{
+            gets(){
+                this.name=this.$route.params.username
+            }
+        }
+    }
+    var Logs={
+        template:"#Logger",
+
+    }
+
+    var routes=[
+        {
+            path:'/home',
+            component:Home
+        },
+        {
+            path:'/login',
+            component:Login,
+
+            children:[
+                {
+                    path:"register",
+                    component:Registers,
+                },
+                {
+                    path:"logname/:username",
+                    component:Logs
+                }
+            ]
+        }
+    ]
+    var router=new VueRouter({
+        routes
+    })
+    var vm=new Vue({
+        el:'#app',
+        router
+    })
+</script>
+
+</body>
+</html>

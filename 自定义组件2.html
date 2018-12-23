@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="nav">
+<hello></hello>
+</div>
+
+
+
+<template id="temp">
+    <div>
+        <h1>{{msg}}</h1>
+        <h2>这是一个h2标签</h2>
+        <h3>{{msg2}}</h3>
+        <pre>{{lis}}</pre>
+        <pre>{{getParent}}</pre>
+        <ul>
+            <li v-for="lists in lis">{{lists}}</li>
+        </ul>
+        <hr>
+        <input type="text" v-model="input_text">
+        {{input_text}}
+    </div>
+</template>
+
+<script>
+    var vue=new Vue({
+        el:'#nav',
+        data:{
+            par:"这是父节点的数据"
+        },
+        components:{
+            'hello':{
+                template: '#temp',
+                props:[],
+                data(){
+                   return {
+                       msg:"hello word",
+                       msg2:"word hello ",
+                       lis:[1234,12345,765,3415,6323,56564],
+                       input_text:''
+                   }
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <aaa></aaa>
+    <bbb></bbb>
+    <ccc></ccc>
+</div>
+
+<template id="hello">
+    <div>
+        <h1>这是组件A:{{msg}}</h1>
+        <button @click="send">将a组件数据发送给c</button>
+    </div>
+</template>
+
+<template id="word">
+    <div>
+        <h1>这是组件B:{{name}}</h1>
+    </div>
+</template>
+
+<template id="tester">
+    <div>
+        <h1>这是组件C接收过来的参数{{msg}}</h1>
+    </div>
+</template>
+
+<script>
+    var bus = new Vue();
+    var vm = new Vue({
+        el:"#app",
+        components:{
+            'aaa':{
+                template:"#hello",
+                data(){
+                    return {
+                        msg:"我是AAA"
+                    }
+                },
+                methods:{
+                    send(){
+                        bus.$emit('data-a',this.msg)
+                    }
+                }
+            },
+            "bbb":{
+                template: "#word",
+                data(){
+                    return {
+                        name:"lixiang"
+                    }
+                }
+            },
+            'ccc':{
+                template:"#tester",
+                data(){
+                    return {
+                        msg:""
+                    }
+                },
+                mounted(){
+                    bus.$on("data-a",msg =>{
+                        this.msg=msg
+                    })
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        window.onload=function () {
+            var vm=new Vue({
+                el:'#itany',
+                data:{
+                    user:{
+                        id:1001,
+                        name:'tom'
+                    },
+                    mans:{
+                        kpi:''
+                    }
+                },
+                methods:{
+                    doUpdate(){
+                        this.user.name='汤姆'
+                    },
+                    doAdd(){
+                        // this.user.age=25; //通过普通方式为对象添加属性时vue无法实时监视到
+                        // this.$set(this.user,'age',18); //通过vue实例的$set方法为对象添加属性，可以实时监视
+                        // this.$set(this.mans,'sex','man');
+                        // Vue.set(this.user,'age',22);
+                        // if(this.user.age){
+                        //     this.user.age++;
+                        // }else{
+                        //     Vue.set(this.user,'age',1);
+                        // }
+                        this.$set(this.mans,'tester','pppkkkk')
+                        // Vue.set(this.data,'zhongting','00000')
+                        // console.log(this.sex);
+                        console.log(this.mans);
+
+                    },
+                    doDelete(){
+                        if(this.mans.tester){
+                            // delete this.user.age; //无效
+                            this.$delete(this.mans,'tester')
+                        }
+                    }
+                }
+            });
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="itany">
+    <button @click="doUpdate">修改属性</button>
+    <button @click="doAdd">添加属性</button>
+    <button @click="doDelete">删除属性</button>
+
+    <hr>
+    <h2>{{user.name}}</h2>
+    <h2>{{mans.tester}}</h2>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        window.onload=function ()  {
+            var vue =new Vue({
+                el:'#app',
+                data:{
+                    msg:'testsss',
+                    message:'hello word',
+                    lists:[123,123,342,234,53423,2134,1233],
+                    flag:true
+                },
+                methods:{
+                    show:function (test) {
+                        console.log(this.msg) //this 表示vue实例
+                        console.log(this.message)
+                        console.log(this.lists.push(999))
+                        this.flag!=this.flag
+                        alert("hello !"+this.msg)
+                    },
+                    add:function () {
+                        console.log(this.flag)
+                        this.show()
+                    },
+                    dis:function () {
+                        this.flag=!this.flag
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body >
+<div id = 'app'>
+    <h1>{{msg}}</h1>
+    <button v-on:click="show((msg+message))">这是一个弹框</button>
+    <button v-on:mouseover="add()" >add弹框</button>
+    {{lists}}
+    <br>
+    <div style="width: 50px ; height: 30px;background: blue" v-show="flag">
+
+    </div>
+
+    <button v-on:click="dis">隐藏/显示</button>
+</div>
+
+</body>
+</html>

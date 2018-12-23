@@ -1,0 +1,81 @@
+
+<!--         v-model    ,  v-for         -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        window.onload=function () {
+            var  vue=new Vue({
+                el:'.app',
+                data:{
+                    name:'理想',
+                    age:'25',
+                    flag:true,
+                    num:[1,234,2341,123,876],
+                    usr:{haha:"adsfads",kk:"asdfasdf"},
+                    items: [
+                        { message: 'Foo' },
+                        { messagess: 'Bar' },
+                        { messagess1: 'Bars' }
+                    ]
+                }
+
+            })
+        }
+    </script>
+</head>
+<body>
+<h1>v-model</h1>
+<h2>数据的双向绑定，一般用于表单元素</h2>
+<div class="app">
+    <input type="text" v-model="name">
+    <br>
+    <span>验证数据的双向绑定:</span> {{name}}
+    <br>
+    {{num}}<br>
+    {{usr}}
+    <br>
+
+    <!--v-for进行循环,,,普通循环-->
+    <ul style=" list-style:none;margin-left: -15px">
+        <li v-for="value in num ">{{value}}</li>
+    </ul>
+    <br>
+    <ul>
+        <li v-for="(v,k) in usr">{{k}}:{{v}}</li>
+    </ul>
+    <table border="1">
+        <tbody>
+        <tr>
+            <td>姓名</td>
+            <td>年龄</td>
+        </tr>
+        <!--可以通过 :key 属性绑定唯一的key，当更新元素时，可重用元素，提高效率-->
+        <tr v-for="(key,value) in usr ":key='key'>
+        <!--<tr v-for="value in num">-->
+            <td>{{key}}</td>
+            <td>{{value}}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+
+    <br>
+    <ul>
+        <li v-for="(item, index) in items">
+            {{ item.message }}
+            {{item.messagess}}
+            {{item.messagess1}}
+        </li>
+    </ul>
+</div>
+
+
+
+</body>
+</html>
